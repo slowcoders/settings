@@ -4,14 +4,15 @@ and these operations are all done internally so users do not have to care about 
 
 We will look into details how Serialize can be utilized through a sample.
 
-#Sample 
+# Sample 
 In a sample, we suppose that we are making an application that needs to store account and ui-related settings in a file.
 We will make a class named "ApplicationSettings" and put all setting properties in it.
 Files will be created in a structure :
+
 ![sample](Sample1.png)
 
 
-###SettingModule
+### SettingModule
 ```java
 public class ApplicationSettings {
     // declare root
@@ -25,7 +26,7 @@ In the example, we passed JsonSettingStore so that data is saved in json format.
 name of SettingModule. A folder named after this String will be created and subordinate setting nodes declared inside
 SettingModule will be created in the folder. 
 
-###SettingProperties
+### SettingProperties
 SettingProperties is a group of setting properties. In this class, we can declared AtomicOption/List/Map/Set which
 store a datum.
 
@@ -79,7 +80,7 @@ It is possible to add another SettingProperties to SettingProperties as subordin
 there is a declared ServerSetting which extends SettingProperties and it is initialized with its parent being AccountSettings. 
 In this case, ServerSetting file will be created in a directory of AccountSetting.
 
-###AtomicOption
+### AtomicOption
 Now we can use setting properties like below.
 ```java
         String emailAddress = ApplicationSettings.account.emailAddress.get();
@@ -89,7 +90,7 @@ Now we can use setting properties like below.
 ```
 Through get(), set() methods we can load and write data. File IO will be executed automatically. 
 
-###Object persistence
+### Object persistence
 Serialize can save all types of data. 
 In the example, we added UiSetting class to save ui-related settings.
 ```java
@@ -156,12 +157,12 @@ This setting can be used in a same way with all other settings.
         ApplicationSettings.ui.notification.set(noti);
 ```
 
-###Custom adapter
+### Custom adapter
 Sometimes it is needed to specify a way object is serialized. In this case, we can register adapter that we created.
 There is a class named IOAdapterLoader which takes charges of resolving adapter and there is a static method
 registerDefaultAdapter() inside IOAdapterLoader. Through this method we can specify adapters for certain types of object.
 
-###Observer
+### Observer
 To all Atomic instances and SettingProperties instances, we can register observer and we can take 
 notifications whenever these get changed.
 ```java
