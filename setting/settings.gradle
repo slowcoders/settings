@@ -1,0 +1,3 @@
+include ':serialize'
+
+project(':serialize').projectDir = new File('../serialize')

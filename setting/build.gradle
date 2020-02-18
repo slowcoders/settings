@@ -7,6 +7,12 @@
 
 apply plugin: 'java'
 
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
 
 sourceSets {
     main {
@@ -26,9 +32,12 @@ sourceSets {
 
 }
 
+ext {
+    targetPlatform = 'java'
+}
 
 dependencies {
-    compile project(':mpbase')
+    compile project(':serialize')
     
     // libraries for test
     testCompile fileTree(dir : 'libs', include : '*.jar')

@@ -9,7 +9,7 @@ In a sample, we suppose that we are making an application that needs to store ac
 We will make a class named "ApplicationSettings" and put all setting properties in it.
 Files will be created in a structure :
 
-![sample](Sample1.png)
+![sample](sample/Sample1.png)
 
 
 ### SettingModule
