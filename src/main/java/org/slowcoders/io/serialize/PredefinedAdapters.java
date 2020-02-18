@@ -20,6 +20,19 @@ public class PredefinedAdapters {
             System.out.print("Predefined adapter registered.");
         }
 
+        public final IOAdapter<DateTimeZone, ?> dateTimeZoneAdapter = IOAdapterLoader.registerDefaultAdapter(
+                DateTimeZone.class, new IOAdapters._String<DateTimeZone>() {
+                    @Override
+                    public String encode(DateTimeZone v) throws Exception {
+                        return v.getID();
+                    }
+
+                    @Override
+                    public DateTimeZone decode(String encoded, boolean isImmutable) throws Exception {
+                        return DateTimeZone.forID(encoded);
+                    }
+                });
+
         public final IOAdapter<Class, ?> classAdapter = IOAdapterLoader.registerDefaultAdapter(
                 Class.class, new IOAdapters._String<Class>() {
 
@@ -92,9 +105,6 @@ public class PredefinedAdapters {
 
                     @Override
                     public DateTime decode(long v, boolean isImmutable) throws Exception {
-//                        if (NPConfig.EXCLUDE_SECOND_MILLIS) {
-//                            v -= v % 1000;
-//                        }
                         return new DateTime(v);
                     }
 
@@ -161,32 +171,5 @@ public class PredefinedAdapters {
                     }
                 });
 
-//        public final IOAdapter<TimeSpan, ?> timeSpnaAdapter = IOAdapterLoader.registerDefaultAdapter(
-//                TimeSpan.class, new IOAdapters._Long<TimeSpan>() {
-//
-//                    @Override
-//                    public TimeSpan decode(long v, boolean isImmutable) throws Exception {
-//                        return new TimeSpan(v);
-//                    }
-//
-//                    @Override
-//                    public long encode(TimeSpan v) throws Exception {
-//                        return v.getMilliseconds();
-//                    }
-//                });
-
-        public final IOAdapter<DateTimeZone, ?> dateTimeZoneAdapter = IOAdapterLoader.registerDefaultAdapter(
-                DateTimeZone.class, new IOAdapters._String<DateTimeZone>() {
-                    @Override
-                    public String encode(DateTimeZone v) throws Exception {
-                        return v.getID();
-                    }
-
-                    @Override
-                    public DateTimeZone decode(String encoded, boolean isImmutable) throws Exception {
-                        return DateTimeZone.forID(encoded);
-                    }
-                }
-        );
     }
 }

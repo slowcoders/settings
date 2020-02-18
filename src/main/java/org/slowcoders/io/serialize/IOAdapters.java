@@ -811,7 +811,7 @@ public abstract class IOAdapters {
 			}
 		}
 
-		static final _String<String> adapter = new _String<String>() {
+		public static final _String<String> adapter = new _String<String>() {
 
 			@Override
 			public String decode(String v, boolean isImmutable) {
@@ -825,46 +825,8 @@ public abstract class IOAdapters {
 		};
 	}
 
-//
-//	public static abstract class _StringArray<T> extends _Stream<T, String[]> {
-//
-//		@Override
-//		public EncodingType getPreferredTransferType() {
-//			return EncodingType.PrintableText;
-//		}
-//
-//		public T read(DataReader in) throws Exception {
-//			String[] v = in.readStringArray();
-//			return v == null ? null: decode(v);
-//		}
-//
-//		public void write(T v, DataWriter out) throws Exception {
-//			String[] data = v == null ? null : encode(v);
-//			out.writeStringArray(data);
-//		}
-//
-//		@Override
-//		public void writeCompatible(Object v, DataWriter writer) throws Exception {
-//			if (v instanceof Iterable) {
-//				String[] array = Iterators.toArray(((Iterable)v).iterator(), String.class);
-//				writer.writeStringArray(array);
-//			}
-//			else {
-//				this.write((T)v, writer);
-//			}
-//		}
-//
-//		static final _StringArray adapter = new _StringArray<String[]>() {
-//
-//
-//			public String[] decode(String[] v) { return v; }
-//
-//			public String[] encode(String[] v) { return v; }
-//		};
-//	}
 
-
-	static class _Number extends IOAdapter<Number, Number> {
+	public static class _Number extends IOAdapter<Number, Number> {
 
 		public Number read(DataReader in) throws Exception {
 			Number v = in.readNumber();
@@ -885,7 +847,7 @@ public abstract class IOAdapters {
 			return number;
 		}
 
-		static final _Number adapter = new _Number();
+		public static final _Number adapter = new _Number();
 	}
 
 
@@ -1082,63 +1044,7 @@ public abstract class IOAdapters {
             }
         };
     }
-//
-//    public static class _ImmutableCollection<T extends Collection<E>, E> extends _Iterable<T, E> {
-//
-//        public _ImmutableCollection(IOAdapter<E> itemAdapter) {
-//            super(itemAdapter);
-//        }
-//
-//        @Override
-//        protected T build(CollectionBuilder<E> builder, String type$, boolean isImmutable) throws Exception {
-//            return (T)builder.build();
-//        }
-//
-//        @Override
-//        public void write(T values, DataWriter writer) throws Exception {
-//            writer.writeCollection(values, getItemAdapter());
-//        }
-//
-//        protected static abstract class _ImmutableFactory extends _Iterable._Factory {
-//        	private final HashMap<Type,_ImmutableCollection> adapters = new HashMap<>();
-//
-//        	public synchronized _ImmutableCollection makeAdapter(Type itemType, IOAdapterLoader adapterLoader) {
-//				_ImmutableCollection adapter = adapters.get(itemType);
-//				if (adapter == null) {
-//					adapter = (_ImmutableCollection)super.makeAdapter(itemType, adapterLoader);
-//					adapters.put(itemType, adapter);
-//				}
-//				return adapter;
-//			}
-//		}
-//
-//        static _ImmutableFactory factory = new _ImmutableFactory() {
-//			@Override
-//			public _Iterable createAdapter(IOAdapter itemAdapter) {
-//				return new _ImmutableCollection(itemAdapter);
-//			}
-//		};
-//
-//    }
-//
-//    public static class _ImmutableSet<T extends Set<E>, E> extends _ImmutableCollection<T, E> {
-//
-//        public _ImmutableSet(IOAdapter<E> itemAdapter) {
-//            super(itemAdapter);
-//        }
-//
-//        @Override
-//        protected T build(CollectionBuilder<E> builder, String type$, boolean isImmutable) throws Exception {
-//            return (T)builder.buildSet();
-//        }
-//
-//        static _ImmutableFactory factory = new _ImmutableFactory() {
-//			public _Iterable createAdapter(IOAdapter itemAdapter) {
-//				return new _ImmutableSet(itemAdapter);
-//			}
-//   		     };
-//    }
-//
+
 
     public static abstract class _Dictionary<T, K, V> extends _Aggregate<T> {
 		private final IOAdapter keyAdapter;
@@ -1258,48 +1164,6 @@ public abstract class IOAdapters {
 			}
         };
     };
-
-//    public static class _ImmutableMap<K, V> extends _Dictionary<Map<K, V>, K, V> {
-//
-//        public _ImmutableMap(IOAdapter keyAdapter, IOAdapter valueAdapter) {
-//            super(keyAdapter, valueAdapter);
-//        }
-//
-//        @Override
-//        protected Map<K, V> build(DataReader.KeyValueCursor<K, V> keyValueCursor, String dictionaryType, boolean isImmutable) throws Exception {
-//            ImmutableMap.Builder builder = new ImmutableMap.Builder();
-//            while (keyValueCursor.next()) {
-//                builder.put(keyValueCursor.getKey(), keyValueCursor.getValue());
-//            }
-//            return builder.build();
-//        }
-//
-//        @Override
-//        public void write(Map<K, V> map, DataWriter writer) throws Exception {
-//            writer.writeMap(null, map.entrySet().iterator(), getKeyAdapter(), getValueAdapter());
-//        }
-//
-//        static _Factory factory = new _Factory() {
-//			private final HashMap<String, _ImmutableMap> adapters = new HashMap<>();
-//
-//			@Override
-//			protected _ImmutableMap makeAdapter(Type keyType, Type valueType, IOAdapterLoader adapterLoader) {
-//				String key = ClassUtils.toClass(keyType).getName() + ":" + ClassUtils.toClass(valueType).getName();
-//				_ImmutableMap adapter = adapters.get(key);
-//				if (adapter == null) {
-//					adapter = (_ImmutableMap)super.makeAdapter(keyType, valueType, adapterLoader);
-//					adapters.put(key, adapter);
-//				}
-//				return adapter;
-//			}
-//
-//            @Override
-//            protected _ImmutableMap createAdapter(IOAdapter keyAdapter, IOAdapter valueAdapter) {
-//                return new _ImmutableMap(keyAdapter, valueAdapter);
-//            }
-//        };
-//
-//    }
 
 
     public static class _Object<T> extends _Aggregate<T> {
@@ -1444,7 +1308,6 @@ public abstract class IOAdapters {
 		@Override
 		protected final T build(CollectionBuilder<E> builder, String type$, boolean isImmutable) throws Exception {
 			throw Debug.notImplemented();
-//				return
 		}
 
 		@Override
