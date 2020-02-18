@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 
-public class StormConfig implements PAL.Impl {
+public class PALConfig implements PAL.Impl {
 
     @Override
     public Storage getStorage() {

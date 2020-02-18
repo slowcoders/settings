@@ -5,7 +5,7 @@ and these operations are all done internally so users do not have to care about 
 We will look into details how Serialize can be utilized through a sample.
 
 # Sample 
-In a sample, we suppose that we are making an application that needs to store account and ui-related settings in a file.
+In a sample, we suppose that we are making an application that needs to store account and ui-related settings to a file.
 We will make a class named "ApplicationSettings" and put all setting properties in it.
 Files will be created in a structure :
 
