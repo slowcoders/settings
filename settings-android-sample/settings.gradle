@@ -1,0 +1,6 @@
+include ':app', ':settings', ':serialize'
+
+project(':settings').projectDir = new File('../settings')
+project(':serialize').projectDir = new File('../serialize')
+
+rootProject.name='settings-android-sample'

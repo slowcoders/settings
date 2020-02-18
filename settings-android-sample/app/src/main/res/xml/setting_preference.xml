@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <org.slowcoders.serialize.android.preference.base.SCCheckboxPreference
+        android:key="checkBoxPreference"
+        android:title="checkBoxPreference"/>
+
+    <org.slowcoders.serialize.android.preference.base.SCEditTextPreference
+        android:key="editTextPreference"
+        android:title="editTextPreference"/>
+
+    <org.slowcoders.serialize.android.preference.base.SCSwitchPreference
+        android:key="switchPreference"
+        android:title="switchPreference"/>
+
+    <org.slowcoders.serialize.android.preference.base.SCListPreference
+        android:key="listPreference"
+        android:title="listPreference"
+        android:entries="@array/name"
+        android:entryValues="@array/values"/>
+
+    <org.slowcoders.serialize.android.preference.base.SCDropDownPreference
+        android:key="dropDownPreference"
+        android:title="dropDownPreference"
+        android:entries="@array/name"
+        android:entryValues="@array/values"/>
+
+    <org.slowcoders.serialize.android.preference.base.SCMultiSelectListPreference
+        android:key="multiSelectListPreference"
+        android:title="multiSelectListPreference"
+        android:entries="@array/name"
+        android:entryValues="@array/values"/>
+
+
+    <org.slowcoders.serialize.android.preference.base.SCDialogPreference
+        android:key="dialogPreference"
+        android:title="dialogPreference"/>
+
+
+    <org.slowcoders.serialize.android.preference.base.SCPreferenceCategory
+        android:key="preferenceCategory"
+        android:title="Category">
+
+        <org.slowcoders.serialize.android.preference.base.SCCheckboxPreference
+            android:key="preferenceCategory/checkBoxPreference"
+            android:title="checkBoxPreference"/>
+
+        <org.slowcoders.serialize.android.preference.base.SCEditTextPreference
+            android:key="preferenceCategory/editTextPreference"
+            android:title="editTextPreference"/>
+
+        <org.slowcoders.serialize.android.preference.base.SCPreferenceCategory
+            android:key="subCategory"
+            android:title="subCategory">
+
+            <org.slowcoders.serialize.android.preference.base.SCCheckboxPreference
+                android:key="preferenceCategory/subCategory/checkBoxPreference"
+                android:title="checkBoxPreference"/>
+
+        </org.slowcoders.serialize.android.preference.base.SCPreferenceCategory>
+
+    </org.slowcoders.serialize.android.preference.base.SCPreferenceCategory>
+
+    <org.slowcoders.serialize.android.preference.base.SCPreferenceCategory
+        android:key="observablePreference"
+        android:title="observablePreference">
+
+        <org.slowcoders.serialize.android.preference.base.SCSwitchPreference
+            android:key="observablePreference/observableSwitch"
+            android:title="observableSwitch"/>
+
+        <org.slowcoders.serialize.android.preference.base.SCEditTextPreference
+            android:key="observablePreference/dependentEditText"
+            android:title="Observe Switch"/>
+
+    </org.slowcoders.serialize.android.preference.base.SCPreferenceCategory>
+
+    <org.slowcoders.serialize.android.preference.base.SCPreferenceCategory
+        android:key="observableCategory"
+        android:title="observableCategory">
+
+        <org.slowcoders.serialize.android.preference.base.SCCheckboxPreference
+            android:key="observableCategory/checkBoxPreference"
+            android:title="checkBoxPreference"/>
+
+        <org.slowcoders.serialize.android.preference.base.SCSwitchPreference
+            android:key="observableCategory/switchPreference"
+            android:title="switchPreference"/>
+
+        <org.slowcoders.serialize.android.preference.base.SCListPreference
+            android:key="observableCategory/listPreference"
+            android:title="listPreference"
+            android:entries="@array/name"
+            android:entryValues="@array/values"/>
+
+    </org.slowcoders.serialize.android.preference.base.SCPreferenceCategory>
+
+    <org.slowcoders.serialize.android.preference.base.SCSwitchPreference
+        android:key="dependentSwitch"
+        android:title="Observe Category"/>
+
+</PreferenceScreen>
