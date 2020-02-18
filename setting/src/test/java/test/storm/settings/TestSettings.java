@@ -26,10 +26,6 @@ public class TestSettings extends SettingModule {
 
     public final UISettings ui = new UISettings(this);
 
-    public final FolderSettings filter = new FolderSettings(this);
-
-    public final CalendarSettings calendar = new CalendarSettings(this);
-
     public final IOSettings ioSettings = new IOSettings(this);
 
     // Global Settings.
@@ -46,10 +42,7 @@ public class TestSettings extends SettingModule {
         public final AtomicOption<Boolean> filterEnable = new _Option(null);
         //@IOCtrl(key = "filterOption")
         public final AtomicOption<Integer> filterOption = new _Option(null);
-        //@IOCtrl(key = "emailCategory")
-        public final AtomicOption<String> emailCategory = new _Option(null);
-        //@IOCtrl(key = "conversationOption")
-        public final AtomicOption<Integer> conversationOption = new _Option(null);
+
     }
 
     // Multi-Instance Settings.
@@ -101,42 +94,6 @@ public class TestSettings extends SettingModule {
         }
 
     }
-
-    public static class CalendarSettings extends SettingProperties {
-        CalendarSettings(SettingProperties store) {
-            super(store);
-        }
-
-        //@IOCtrl(key = "viewFilterAccountId")
-        public final AtomicOption<Long> viewFilterAccountId = new _Option(null);
-
-        //@IOCtrl(key = "viewFilterFolderId")
-        public final AtomicOption<Long> viewFilterFolderId = new _Option(null);
-
-        //@IOCtrl(key = "viewFilterCategory")
-        public final AtomicOption<String> viewFilterCategory = new _Option(null);
-
-        //@IOCtrl(key = "showTasks")
-        public final AtomicOption<Boolean> showTasks = new _Option(null);
-
-        //@IOCtrl(key = "showTasksOption")
-        public final AtomicOption<Integer> showTasksOption = new _Option(null);
-
-        //@IOCtrl(key = "calendarCategoriesOrdering")
-        public final AtomicOption<String> calendarCategoriesOrdering = new _Option(null);
-
-    }
-
-
-    // Database 연동 테스트용.
-    public static class FolderSettings extends SettingProperties {
-        FolderSettings(SettingProperties store) {
-            super(store);
-        }
-
-    }
-
-
 
     public static class IOSettings extends SettingProperties {
 

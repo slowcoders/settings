@@ -26,7 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.junit.Assert.*;
 
 
-public class SettingsTest1 {
+public class SettingsTest {
 	static TestSettings config = TestSettings.settings;
 
 	@Test
@@ -46,7 +46,7 @@ public class SettingsTest1 {
 
 		ThemeType notiResult_theme;
 
-		// Weak-Observer 보관용 필드.
+		// for Weak-Observer.
 		ObservableOption.Observer<ThemeType> themeObserver;
 		SettingProperties.Observer categoryObserver;
 		ChangeType lastChangeType;
@@ -54,7 +54,8 @@ public class SettingsTest1 {
 		@Before
 		public void setUp() {
 			/**
-			 * Option 값을 reset 하고, pending Async-notification 을 clear
+			 * reset values of option and
+			 * clear pending Async-notifications
 			 */
 			config.ui.resetAllOptions();
 			NPAsyncScheduler.executePendingTasks();
@@ -80,7 +81,7 @@ public class SettingsTest1 {
 			});
 
 			/**
-			 * 지난 Test에 사용된 WeakObserver 를 clear 한다.
+			 * clear WeakObservers from the last test
 			 */
 			System.gc();
 			
@@ -102,17 +103,16 @@ public class SettingsTest1 {
 		}
 
 		/**
-		 * Option 값의 직접적인 변경.
-		 * Option 값 변경과 동시에 SharedOption.Observer와 SharedCategory.Observer에 Notification 전달.
-		 * 
-		 * @throws Exception
+		 * directly change value of option
+		 * when options is changed notifications have to be sent
 		 */
 		@Test
 		public void directChange() throws Exception {
 			
 			config.ui.theme.set(config.ui.theme.get());
 			NPAsyncScheduler.executePendingTasks();
-			// 동일값인 경우, Noti 전달하지 않음.
+			// when setting same value,
+			// update does not occur
 			assertEquals(cntThemeChangedNoti, 0);
 			
 			config.ui.theme.set(ThemeType.PINK);
@@ -123,47 +123,45 @@ public class SettingsTest1 {
 			NPAsyncScheduler.executePendingTasks();
 
 			assertEquals(ThemeType.DARK, notiResult_theme);
-			// Option noti 시마다 category noti 도 전달.
+			// properties notification has to be sent as well
+			// when option is changed
 			assertEquals(2, cntUiCategoryChangedNoti);
 			
 		}
 		
 		/**
-		 * Editor 를 이용한 Option 값 변경.
-		 * Editor.commit 호출 이후에 실제 Option 값이 변경되고,
-		 * Option 값 변경과 동시에 SharedOption.Observer와 SharedCategory.Observer에 Notification 전달.
-		 * 
-		 * @throws Exception
+		 * change option with Editor.
+		 * After commit, option has to be updated
+		 * and notifications have to be delivered
 		 */
 		@Test
 		public void updateWithEditor() throws Exception {
 
 			SettingProperties.Editor tr = config.edit();
-			// key 문자열을 이용한 변경.
+			// change with key
 			assertEquals(config.ui.theme.getDefaultValue(), config.ui.theme.get());
 			tr.setProperty(config.getOptionKey(config.ui.theme), ThemeType.WHITE);
 			tr.setProperty(config.ui.theme, ThemeType.DARK);
 
-			// commit 전까지는 내용변경 없음. 
-			assertEquals(null, notiResult_theme);
+			// until commit, there have to be no change
+			assertNull(notiResult_theme);
 			assertEquals(cntThemeChangedNoti, 0);
 			assertEquals(cntUiCategoryChangedNoti, 0);
 			tr.commit();
 
-			// commit 후에 Noti 전달.
+			// notification has to be delivered after commit
 			NPAsyncScheduler.executePendingTasks();
 			assertEquals(ThemeType.DARK, notiResult_theme);
 			assertEquals(1, cntThemeChangedNoti);
 			assertEquals(1, cntUiCategoryChangedNoti);
-			
-			// Option 변경 Noti 전달 후에, Category 변경 Noti 전달.
+
+			// after notification for option is delivered,
+			// notification for category has to be delivered
 			assertEquals(1, cntThemeChangedNoti_beforeUiCategoryChangedNoti);
 		}
 
 		/**
 		 * Reflection Field Test  
-		 * 
-		 * @throws Exception
 		 */
 		@Test
 		public void AccessEntityFieldOption() throws Exception {
@@ -175,10 +173,10 @@ public class SettingsTest1 {
 			tr.setProperty(prefix + "email", "test@email.com");
 			tr.setProperty(prefix + "password", "Password-1234");
 
-			// commit 전까지는 내용변경 없음. 
+			// there has to be no change until commit
 			tr.commit();
 
-			// commit 후에 Noti 전달. 
+			// notification has to be delivered after commit
 			assertEquals(account.serverProperties.get().getEmail(), "test@email.com");
 			assertEquals(account.serverProperties.get().getPassword(), "Password-1234");
 			
@@ -219,27 +217,26 @@ public class SettingsTest1 {
 
 	}
 
-	// JJ
 	public static class Test2 {
 
 		private TestSettings.IOSettings.TestC obj1 = new TestSettings.IOSettings.TestC.Builder()
-				.setCompany("nineFolders1")
-				.setName("jonghoon1")
+				.setCompany("slowcoders1")
+				.setName("coder1")
 				.build();
 
 		private TestSettings.IOSettings.TestC obj2 = new TestSettings.IOSettings.TestC.Builder()
-				.setCompany("nineFolders2")
-				.setName("jonghoon2")
+				.setCompany("slowcoders2")
+				.setName("coder2")
 				.build();
 
 		private TestSettings.IOSettings.TestC obj3 = new TestSettings.IOSettings.TestC.Builder()
-				.setCompany("nineFolders3")
-				.setName("jonghoon3")
+				.setCompany("slowcoders3")
+				.setName("coder3")
 				.build();
 
 		private TestSettings.IOSettings.TestC obj4 = new TestSettings.IOSettings.TestC.Builder()
-				.setCompany("nineFolders4")
-				.setName("jonghoon4")
+				.setCompany("slowcoders4")
+				.setName("coder4")
 				.build();
 
 
@@ -311,32 +308,31 @@ public class SettingsTest1 {
 		@Test
 		public void atomicSet() throws Exception {
 			HashSet<String> set = new HashSet<>();
-			set.add("jonghoon");
-			set.add("ninefolders");
+			set.add("coder");
+			set.add("slowcoders");
 			TestSettings.settings.ioSettings.testSet.set(set);
 
 			TestSettings.settings.exportTo(JsonSettingsStore.instance, "test.settings-3");
 
 			TestSettings settings = new TestSettings(JsonSettingsStore.instance, "test.settings-3");
 			ImmutableSet<String> result = settings.ioSettings.testSet.get();
-			ImmutableList<String> list = result.asList();
 
-			Assert.assertEquals("jonghoon", list.get(0));
-			Assert.assertEquals("ninefolders", list.get(1));
+			Assert.assertTrue(result.contains("coder"));
+			Assert.assertTrue(result.contains("slowcoders"));
 		}
 
 		@Test
 		public void observableList_Map() {
 			List<String> testList = new LinkedList<>();
-			testList.add("lee");
-			testList.add("jong");
-			testList.add("hoon");
+			testList.add("slow");
+			testList.add("coder");
+			testList.add("ggg");
 			testList.add("haha");
 
 			Map<String, String> testMap = new HashMap<>();
-			testMap.put("name", "jonghoon.lee");
+			testMap.put("name", "coder.lee");
 			testMap.put("age", "27");
-			testMap.put("company", "ninefolders");
+			testMap.put("company", "slowcoders");
 
 			TestSettings.settings.ioSettings.testList.set(testList);
 			TestSettings.settings.ioSettings.testMap.set(testMap);
@@ -383,7 +379,7 @@ public class SettingsTest1 {
 		}
 
 		/*
-		 * 	WeakObserver 로 추가된 observer가 gc 이후에 존재하는지 확인하는 테스트
+		 *  Test if weakObserver is removed after gc
 		 * */
 		@Test
 		public void weaklyReferencedObserver() throws Exception {
@@ -407,25 +403,23 @@ public class SettingsTest1 {
 			TestSettings.settings.ui.theme.addWeakAsyncObserver(weakObserver);
 			TestSettings.settings.ui.theme.addAsyncObserver(strongObserver);
 
-			// observer 를 참조하는 곳이 없도록 null 값 설정
+			// set null so that observer is no more referenced
 			strongObserver = null;
 			weakObserver = null;
 
-			// GarbageCollector 발동
+			// GarbageCollector
 			System.gc();
 
 			TestSettings.settings.ui.theme.set(ThemeType.WHITE);
 
 			NPAsyncScheduler.executePendingTasks();
-			// weakReference로 연결된 observer는 발동되지 않음
+			// weak-referenced observer does not do anything
 			assertEquals(1, strongNotiCnt.get());
 			assertEquals(0, weakNotiCnt.get());
 		}
 
 		@Test
 		public void asyncUiTask(){
-			// TODO: initScheduler 크로스 플랫폼 구현
-
 			TestSettings.settings.ui.theme.addAsyncObserver(new AtomicOption.Observer<ThemeType>() {
 				@Override
 				public void onPropertyChanged(ThemeType property) {
