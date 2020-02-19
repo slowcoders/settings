@@ -4,6 +4,22 @@ Serialize 는 데이터 직렬화를 위한 모듈이며 어플리케이션 내�
 
 아래에서 우리는 간단한 샘플을 통해 Serialize 를 어떻게 활용할 수 있는지 알아봅니다.
 
+### Gradle
+Settings 사용하기 위해선 먼저 gradle 파일에 targetPlatform 을 지정해주어야 합니다.
+자바 어플리케이션에서 사용하는 경우 아래의 코드를 build.gradle 파일에 추가해주세요.
+```groovy
+    ext {
+        targetPlatform = 'java'
+    }
+``` 
+
+안드로이드 어플리케이션일 경우 아래의 코드를 추가하면 됩니다.
+```groovy
+    ext {
+        targetPlatform = 'android'
+    }
+```
+
 # Sample 
 샘플에서 우리는 계정 및 ui 와 관련된 정보를 파일로 기록해야하는 상황을 가정합니다. 
 어플리케이션의 설정값들을 관리할 ApplicationSettings 클래스를 만들고 설정값들은 모두 이 클래스 내에 선언하도록 하겠습니다.

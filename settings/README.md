@@ -4,6 +4,23 @@ and these operations are all done internally so users do not have to care about 
 
 We will look into details how Settings can be utilized through a sample.
 
+### Gradle
+To use Settings, in build gradle, targetPlatform has to be declared.
+In a java application, add this to your build.gradle file
+```groovy
+    ext {
+        targetPlatform = 'java'
+    }
+```
+
+In an android applcation, add this to your build.gradle file.
+```groovy
+    ext {
+        targetPlatform = 'android'
+    }
+```
+
+
 # Sample 
 In a sample, we suppose that we are making an application that needs to store account and ui-related settings to a file.
 We will make a class named "ApplicationSettings" and put all setting properties in it.
