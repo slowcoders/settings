@@ -4,11 +4,6 @@ and these operations are all done internally so users do not have to care about 
 
 We will look into details how Settings can be utilized through a sample.
 
-Note) This project includes submodules so use --recursive option to clone full package
-```text
-    git clone --recursive https://github.com/slowcoders/settings.git
-```
-
 ### Gradle
 To use Settings, in build gradle, targetPlatform has to be declared.
 In a java application, add this to your build.gradle file

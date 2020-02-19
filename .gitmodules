@@ -1,3 +1,0 @@
-[submodule "serialize"]
-	path = serialize
-	url = https://github.com/slowcoders/serialize.git
