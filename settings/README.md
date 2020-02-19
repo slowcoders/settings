@@ -1,8 +1,8 @@
-Serialize is a module for data serialization and it suggests a object-oriented way to handle data that need to be stored in a file.
-With apis Serialize provides, we can write and load data through simple method calls 
+Settings suggests a object-oriented way to handle data that need to be stored in a file.
+With apis Settings provides, we can write and load data through simple method calls 
 and these operations are all done internally so users do not have to care about complex details such as file IO.
 
-We will look into details how Serialize can be utilized through a sample.
+We will look into details how Settings can be utilized through a sample.
 
 # Sample 
 In a sample, we suppose that we are making an application that needs to store account and ui-related settings to a file.
@@ -91,7 +91,7 @@ Now we can use setting properties like below.
 Through get(), set() methods we can load and write data. File IO will be executed automatically. 
 
 ### Object persistence
-Serialize can save all types of data. 
+Settings can save all types of data. 
 In the example, we added UiSetting class to save ui-related settings.
 ```java
     public static class UiSettings extends SettingProperties {
