@@ -1,4 +1,4 @@
-package test.storm.settings;
+package test.settings;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -18,7 +18,7 @@ import org.slowcoders.observable.ObservableData;
 import org.slowcoders.observable.ObservableCollection;
 import org.slowcoders.observable.ObservableList;
 import org.slowcoders.observable.ChangeType;
-import test.storm.settings.TestSettings.AccountSettings;
+import test.settings.TestSettings.AccountSettings;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;

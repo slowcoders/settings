@@ -1,4 +1,4 @@
-package test.storm.settings;
+package test.settings;
 
 import java.util.ArrayList;
 import java.util.HashMap;
