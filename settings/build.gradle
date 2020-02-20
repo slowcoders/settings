@@ -4,22 +4,60 @@
  * This is a general purpose Gradle build.
  * Learn how to create Gradle builds at https://guides.gradle.org/creating-new-gradle-builds/
  */
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+'
+    }
+}
 
 apply plugin: 'java'
 apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
 
-group = 'org.slowcoders'
-archivesBaseName = 'settings'
-version = '1.0.0'
+group 'org.slowcoders'
+version '1.0.0'
+
+bintray {
+    user = findProperty('maven.username')
+    key = findProperty('maven.password')
+    publications = ['publication']
+
+    publish = true
+
+    pkg {
+        repo = 'slowcoders'
+        name = 'settings'
+        vcsUrl = 'https://github.com/slowcoders/settings.git'
+        version {
+            name = project.version
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+publishing {
+    publications {
+        publication(MavenPublication) {
+            from components.java
+            groupId 'org.slowcoders'
+            artifactId 'settings'
+            version project.version
+
+            artifact sourcesJar
+        }
+    }
+}
 
 allprojects {
     repositories {
         jcenter()
-
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/slowcoders/serialize")
-        }
     }
 }
 
@@ -46,33 +84,12 @@ ext {
 }
 
 dependencies {
-
-//    implementation 'org.slowcoders:serialize:1.0.0'
-    implementation group: 'org.slowcoders', name: 'serialize', version: '1.0.0'
+    implementation 'org.slowcoders:serialize:1.0.0'
 
     // libraries for test
     testCompile fileTree(dir : 'libs', include : '*.jar')
     testCompile group: 'org.hamcrest', name: 'hamcrest-core', version: '1.3'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.23.4'
-}
-
-
-publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/slowcoders/settings")
-            credentials {
-                username = System.getenv("GITHUB_USERNAME")
-                password = System.getenv("GITHUB_PERSONAL_TOKEN")
-            }
-        }
-    }
-    publications {
-        gpr(MavenPublication) {
-            from(components.java)
-        }
-    }
 }
 
 

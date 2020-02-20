@@ -24,7 +24,9 @@ android {
 }
 
 dependencies {
-    implementation project(':settings')
+    implementation ('org.slowcoders:settings:1.0.0') {
+        exclude group: 'com.google.j2objc'
+    }
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
