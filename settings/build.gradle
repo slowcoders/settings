@@ -45,6 +45,14 @@ task sourcesJar(type: Jar) {
 publishing {
     publications {
         publication(MavenPublication) {
+            pom.withXml {
+                asNode().dependencies.dependency.each { dep ->
+                    def _package = dep.groupId.last().value().last() + ':' + dep.artifactId.last().value().last()
+                    if(_package in excludeInPublish) {
+                        assert dep.parent().remove(dep)
+                    }
+                }
+            }
             from components.java
             groupId 'org.slowcoders'
             artifactId 'settings'
@@ -81,6 +89,9 @@ sourceSets {
 
 ext {
     targetPlatform = 'java'
+    excludeInPublish = [
+            'com.google.guava:guava'
+    ]
 }
 
 dependencies {
