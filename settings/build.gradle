@@ -85,6 +85,11 @@ ext {
 
 dependencies {
     implementation 'org.slowcoders:serialize:1.0.0'
+    if (targetPlatform == 'java') {
+        implementation 'com.google.guava:guava:25.1-jre'
+    } else {
+        implementation 'com.google.guava:guava:25.1-android'
+    }
 
     // libraries for test
     testCompile fileTree(dir : 'libs', include : '*.jar')

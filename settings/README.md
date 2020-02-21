@@ -4,20 +4,36 @@ and these operations are all done internally so users do not have to care about 
 
 We will look into details how Settings can be utilized through a sample.
 
-### Gradle
-To use Settings, in build gradle, targetPlatform has to be declared.
-In a java application, add this to your build.gradle file
+# Prerequisites
+
+To add Settings to your project :
 ```groovy
-    ext {
-        targetPlatform = 'java'
+    repositories {
+        maven {
+            url 'https://dl.bintray.com/leejh-77/slowcoders'
+        }
+    }
+```
+```groovy
+    dependencies {
+        implementation 'org.slowcoders:settings:1.0.0'
     }
 ```
 
-In an android applcation, add this to your build.gradle file.
+Google guava library is needed to use Settings, code below has to be added to 'build.gradle'
+In java application :
 ```groovy
-    ext {
-        targetPlatform = 'android'
-    }
+dependencies {
+    // google guava
+    implementation group: 'com.google.guava', name: 'guava', version: '25.1-jre'
+}
+```
+In Android application :
+```groovy
+dependencies {
+    // google guava
+    implementation group: 'com.google.guava', name: 'guava', version: '25.1-android'
+s}
 ```
 
 

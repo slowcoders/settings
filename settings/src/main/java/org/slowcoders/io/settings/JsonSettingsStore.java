@@ -5,15 +5,12 @@ import org.slowcoders.io.serialize.JSONReader;
 import org.slowcoders.io.serialize.JSONWriter;
 import org.slowcoders.pal.PAL;
 import org.slowcoders.util.Debug;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
 public class JsonSettingsStore implements SettingStorage {
 
     public static final JsonSettingsStore instance = new JsonSettingsStore();
-    public static final Logger log = LoggerFactory.getLogger("SettingStore");
 
     private final File root;
 
@@ -50,7 +47,7 @@ public class JsonSettingsStore implements SettingStorage {
             }
         }
         catch (Exception e) {
-            log.error("Loading Fail: " + storagePath, e);
+            Debug.debugWarning("Loading Fail: " + storagePath);
             try {
                 saveTo(settings, f);
             }

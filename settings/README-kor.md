@@ -4,19 +4,35 @@ Serialize 는 데이터 직렬화를 위한 모듈이며 어플리케이션 내�
 
 아래에서 우리는 간단한 샘플을 통해 Serialize 를 어떻게 활용할 수 있는지 알아봅니다.
 
-### Gradle
-Settings 사용하기 위해선 먼저 gradle 파일에 targetPlatform 을 지정해주어야 합니다.
-자바 어플리케이션에서 사용하는 경우 아래의 코드를 build.gradle 파일에 추가해주세요.
-```groovy
-    ext {
-        targetPlatform = 'java'
-    }
-``` 
+# 준비
 
-안드로이드 어플리케이션일 경우 아래의 코드를 추가하면 됩니다.
+아래의 코드로 Settings 라이브러리를 추가합니다.
 ```groovy
-    ext {
-        targetPlatform = 'android'
+    repositories {
+        maven {
+            url 'https://dl.bintray.com/leejh-77/slowcoders'
+        }
+    }
+```
+```groovy
+    dependencies {
+        implementation 'org.slowcoders:settings:1.0.0'
+    }
+```
+
+Settings 를 사용하기 위해선 Google 의 guava 라이브러리가 필요합니다.
+자바 어플리케이션 :
+```groovy
+    dependencies {
+        // google guava
+        implementation group: 'com.google.guava', name: 'guava', version: '25.1-jre'
+    }
+```
+안드로이드 어플리케이션 :
+```groovy
+    dependencies {
+        // google guava
+        implementation group: 'com.google.guava', name: 'guava', version: '25.1-android'
     }
 ```
 
